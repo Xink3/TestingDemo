@@ -9,7 +9,10 @@ _stock = {
 
 
 def get_stock(item_id: str) -> int:
-    """Return current stock count for an item. Returns 0 if the item is unknown."""
+    """
+    Return current stock count for an item.
+    Returns 0 if the item is unknown.
+    """
     return _stock.get(item_id, 0)
 
 
@@ -25,7 +28,7 @@ def reduce_stock(item_id: str, quantity: int) -> bool:
     if current < quantity:
         return False
     _stock[item_id] = current - quantity
-    return _stock[item_id]
+    return True
 
 
 def reset_stock():
