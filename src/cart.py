@@ -2,8 +2,9 @@
 # Manages a shopping cart. A cart belongs to one customer and can
 # hold multiple items before checkout.
 #
-# This module knows NOTHING about stock or payments — it is what the user sees and interacts with.
-# responsible for building a list of intended purchases.
+# This module knows NOTHING about stock or payments — it is what the
+# user sees and interacts with, responsible for building a list of
+# intended purchases.
 
 _carts = {}   # { customer_email: { item_id: quantity } }
 

@@ -10,12 +10,17 @@
 #    my cart is cleared, and I receive a confirmation."
 
 import cart
-import inventory
 import orders
 
 
 class CheckoutResult:
-    def __init__(self, success: bool, message: str, order_ids: list = None, failures: list = None):
+    def __init__(
+        self,
+        success: bool,
+        message: str,
+        order_ids: list = None,
+        failures: list = None
+    ):
         self.success = success
         self.message = message
         self.order_ids = order_ids or []
@@ -39,7 +44,8 @@ def checkout(customer_email: str) -> CheckoutResult:
 
     After processing all items:
       - If every item succeeded: cart is cleared, result is success
-      - If some items failed: cart keeps only the failed items, result is partial failure
+      - If some items failed: cart keeps only the failed items,
+        result is partial failure
       - If the cart was empty: return an error immediately
 
     Notifications are sent per item by orders.place_order() automatically.
@@ -72,9 +78,11 @@ def checkout(customer_email: str) -> CheckoutResult:
         cart.clear_cart(customer_email)
         for f in failures:
             cart.add_to_cart(customer_email, f["item_id"], f["quantity"])
+        msg = (f"Partial checkout: {len(order_ids)} succeeded, "
+               f"{len(failures)} failed")
         return CheckoutResult(
             False,
-            f"Partial checkout: {len(order_ids)} succeeded, {len(failures)} failed",
+            msg,
             order_ids=order_ids,
             failures=failures,
         )
