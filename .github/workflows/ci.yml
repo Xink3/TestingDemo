@@ -19,7 +19,7 @@ jobs:
       
       - name: Install dependencies
         run:  pip install pytest flake8
-              pip install safety requests==2.31.0
+              pip install safety requests==2.33.1
 
       - name: Lint
         run: flake8 src/ tests/
