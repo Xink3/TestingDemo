@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-   branches: [ master ]
+    branches: [ master ]
   pull_request:
-   branches: [ master ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
           python-version: "3.11"
       
       - name: Install dependencies
-        run:  pip install pytest flake8 bandit safety detect-secrets pip-audit
+        run: pip install pytest flake8 bandit safety detect-secrets pip-audit
 
       - name: Lint
         run: flake8 src/ tests/
@@ -32,5 +32,7 @@ jobs:
       - name: Test
         run: pytest tests/ -v
 
-      - name: Security Scan
-        run: detect-secrets-hook --baseline .secrets.baseline
+      - name: Secret scan
+        run: |
+          detect-secrets scan --baseline .secrets.baseline
+          git diff --exit-code .secrets.baseline
