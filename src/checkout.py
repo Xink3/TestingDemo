@@ -12,10 +12,6 @@
 import cart
 import orders
 
-db_password = "hardcoded_password_for_demo" # noqa
-secret_key = "abc123supersecretkey" # noqa
-
-
 class CheckoutResult:
     def __init__(
         self,
