@@ -35,4 +35,12 @@ jobs:
       - name: Secret scan
         run: |
           detect-secrets scan --baseline .secrets.baseline
-          git diff --exit-code .secrets.baseline
+          python -c "
+          import json
+          with open('.secrets.baseline') as f:
+              baseline = json.load(f)
+          if baseline['results']:
+              print('Secrets detected!', baseline['results'])
+              exit(1)
+          print('No secrets found.')
+          "
